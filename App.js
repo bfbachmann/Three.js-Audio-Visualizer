@@ -120,7 +120,7 @@ function ballControl() {
 
 function initModel() {
     var modelMaterial = new THREE.MeshBasicMaterial({
-        color: 0x808080
+        color: 0x808080        
     });
     var loader = new THREE.JSONLoader();
     
