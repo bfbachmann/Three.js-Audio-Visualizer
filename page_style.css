@@ -2,3 +2,7 @@ p {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     color: dodgerblue;
 }
+
+.app-window {
+    float: right;
+}

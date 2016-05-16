@@ -21,7 +21,7 @@ function init() {
     scene = new THREE.Scene();
     
     renderer = new THREE.CanvasRenderer();
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize( window.innerWidth, window.innerHeight);
     renderer.setClearColor( 0xf0f0f0 );
     document.body.appendChild( renderer.domElement );
     
@@ -30,8 +30,8 @@ function init() {
     controls.addEventListener('change', render);
     
     // Create particles
-    // createSprites(100);
-    // createSpheres(50);
+    createSprites(100);
+    createSpheres(50);
     initModel();
 }
 
@@ -81,7 +81,6 @@ function createSprites(numSprites) {
 function createSpheres(numSpheres) {
     
     for (var i = 0; i < numSpheres; i++) {
-        
         var geometry = new THREE.SphereGeometry( 20, 10, 10 );
         var material = new THREE.MeshBasicMaterial( {color: Math.random() * 0x808008 + 0x808080} );
         var sphere = new THREE.Mesh( geometry, material );
@@ -97,7 +96,7 @@ function createSpheres(numSpheres) {
 }
 
 
-
+// Controls the movement of the spheres in the scene
 function ballControl() {
     var length = balls.length;
     
@@ -105,22 +104,22 @@ function ballControl() {
         var ball = balls[i];
         var location = new THREE.Vector3(ball.position.x, ball.position.y, ball.position.z);
         
-        if (ball.position.x < 500 || ball.position.y < 500 || ball.position.z < 500) {
-            ball.position.y += 2;  
-            ball.position.x += 2;
-            ball.position.z += 2;
+        console.log(ball.position.x + ' , ' + ball.position.y + ' , ' + ball.position.z);
+        
+        if (ball.position.z > 250) {
+            ball.position.z = -250;
+            ball.position.x = Math.random() * 1000 - 500;
+            ball.position.y = Math.random() * 1000 - 500;
         } else {
-            ball.position.x = 5;
-            ball.position.y = 5;
-            ball.position.z = 5;
+            ball.position.z += 10;
         }  
     }
 }
 
-
+// Loads 3D character model into scene form JSON file
 function initModel() {
     var modelMaterial = new THREE.MeshBasicMaterial({
-        color: 0x808080        
+        color: 0x802080        
     });
     var loader = new THREE.JSONLoader();
     
