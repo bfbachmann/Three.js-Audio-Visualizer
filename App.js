@@ -1,6 +1,6 @@
 // Declare top level variables
 var camera, scene, renderer, container, controls;
-var balls = [];
+var spheres = [];
 
 init();
 animate();
@@ -25,7 +25,7 @@ function init() {
     renderer.setClearColor( 0xf0f0f0 );
     document.body.appendChild( renderer.domElement );
     
-    // Setup camera controls
+    // Setup camera controls 
     controls = new THREE.TrackballControls(camera);
     controls.addEventListener('change', render);
     
@@ -49,8 +49,8 @@ function animate() {
     render();
     requestAnimationFrame(animate);
     controls.update();
-    if (balls.length > 0) {
-        ballControl();
+    if (spheres.length > 0) {
+        sphereControl();
     }
 }
 
@@ -90,28 +90,28 @@ function createSpheres(numSpheres) {
         sphere.position.z = Math.random() * 1000 - 500;
         
         // Add the particle to the scene
-        balls.push(sphere);
+        spheres.push(sphere);
         scene.add(sphere);
     }
 }
 
 
 // Controls the movement of the spheres in the scene
-function ballControl() {
-    var length = balls.length;
+function sphereControl() {
+    var length = spheres.length;
     
     for (var i = 0; i < length; i++) {
-        var ball = balls[i];
-        var location = new THREE.Vector3(ball.position.x, ball.position.y, ball.position.z);
+        var sphere = spheres[i];
+        var location = new THREE.Vector3(sphere.position.x, sphere.position.y, sphere.position.z);
         
-        console.log(ball.position.x + ' , ' + ball.position.y + ' , ' + ball.position.z);
+        console.log(sphere.position.x + ' , ' + sphere.position.y + ' , ' + sphere.position.z);
         
-        if (ball.position.z > 250) {
-            ball.position.z = -250;
-            ball.position.x = Math.random() * 1000 - 500;
-            ball.position.y = Math.random() * 1000 - 500;
+        if (sphere.position.z > 250) {
+            sphere.position.z = -250;
+            sphere.position.x = Math.random() * 1000 - 500;
+            sphere.position.y = Math.random() * 1000 - 500;
         } else {
-            ball.position.z += 10;
+            sphere.position.z += 10;
         }  
     }
 }
