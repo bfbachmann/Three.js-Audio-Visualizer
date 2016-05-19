@@ -106,8 +106,8 @@ function sphereControl() {
         
         console.log(sphere.position.x + ' , ' + sphere.position.y + ' , ' + sphere.position.z);
         
-        if (sphere.position.z > 250) {
-            sphere.position.z = -250;
+        if (sphere.position.z > 500) {
+            sphere.position.z = -500;
             sphere.position.x = Math.random() * 1000 - 500;
             sphere.position.y = Math.random() * 1000 - 500;
         } else {
