@@ -30,7 +30,7 @@ h2 {
 .upperSection {
     float: left;
     width: 100%;
-    height: 300px;
+    height: 200px;
     text-align: center;
     background: -webkit-linear-gradient(left, lightcyan ,  #99ccff); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(right, lightcyan ,  #99ccff); /* For Opera 11.1 to 12.0 */
@@ -69,7 +69,7 @@ h2 {
     vertical-align: center; 
     z-index: 0; 
     position: absolute; 
-    top: 140.4%;
+    top: 128%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
 }
@@ -80,7 +80,7 @@ h2 {
     vertical-align: center; 
     z-index: 0; 
     position: absolute; 
-    top: 140.4%;
+    top: 128%;
     left: 16.7%;
     transform: translateX(-50%) translateY(-50%);
 }
@@ -91,7 +91,7 @@ h2 {
     vertical-align: center; 
     z-index: 0; 
     position: absolute; 
-    top: 140.4%;
+    top: 128%;
     left: 83.3%;
     transform: translateX(-50%) translateY(-50%); 
 }
@@ -99,7 +99,7 @@ h2 {
 .col-centered {
     text-align: center;
     padding-top: 50px;
-    height: 500px;
+    height: 600px;
 }
 
 .middle {
