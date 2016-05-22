@@ -2,6 +2,10 @@ var container, camera, scene, particleSystem, renderer, light1;
 var tick = 0;
 var clock = new THREE.Clock();
 var DEBUG = true;
+var oldX, oldY;
+var currentX, currentY;
+
+oldY = oldX = NaN;
 
 init();
 animate();
@@ -101,10 +105,24 @@ function animate() {
 function spawnParticles(delta_t, tick) {
     if (delta_t > 0) {
         var radius = Math.abs(10 - tick % 20);
+
+        if (oldX != NaN) {
+            oldX = currentX;
+            oldY = currentY;
+        }
         
         options.position.x = radius * Math.cos(tick * spawnerOptions.horizontalSpeed) * 4;
         options.position.y = radius * Math.sin(tick * spawnerOptions.verticalSpeed) * 3;
         options.position.z = Math.cos(tick * spawnerOptions.horizontalSpeed + spawnerOptions.verticalSpeed) * 5;
+
+        currentX = options.position.x;
+        currentY = options.position.y;
+
+        if (Math.sqrt(Math.pow(currentX - oldX, 2) + Math.pow(currentY - oldY, 2)) > 0.8) {
+            explosion();
+        }
+
+        console.log(Math.sqrt(Math.pow(currentX - oldX, 2) + Math.pow(currentY - oldY, 2)));
         
         for (var x = 0; x < spawnerOptions.spawnRate * delta_t; x++) {
             // Note: once the particles have been spawned their behavour is controlled completely by the GPU
@@ -140,7 +158,6 @@ function welcomeBurst() {
     var delta_t = clock.getDelta() * spawnerOptions.timeScale;
     
     if (delta_t > 0) {
-        var radius = Math.abs(10 - tick % 20);
         
         options.position.x = 0;
         options.position.y = 0;
@@ -151,6 +168,27 @@ function welcomeBurst() {
             particleSystem.spawnParticle(options);
         }
     }
+}
+
+
+// Create quick explosion of particles at the current spawner position
+function explosion() {
+
+    options.horizontalSpeed *= 3;
+    options.verticalSpeed *= 3;
+
+    var delta_t = clock.getDelta() * spawnerOptions.timeScale;
+    var vr = options.velocityRandomness;
+    options.velocityRandomness = 100;
+    
+    if (delta_t > 0) {        
+        for (var x = 0; x < 1000; x++) {
+            // Note: once the particles have been spawned their behavour is controlled completely by the GPU
+            particleSystem.spawnParticle(options);
+        }
+    }
+
+    options.velocityRandomness = vr;
 }
 
 
