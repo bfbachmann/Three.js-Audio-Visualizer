@@ -10,20 +10,20 @@ h1 {
 }
 
 h2 {
-    vertical-align: center; 
-    z-index:0; 
-    position: absolute; 
+    font-family: 'league-gothic';
+}
+
+#ill {
     top: 52%;
     left: 50%;
+    position: absolute; 
     transform: translateX(-50%) translateY(-50%);
 }
 
-h3 {
-    vertical-align: center; 
-    z-index:0; 
-    position: absolute; 
+#nasty {
     top: 54%;
     left: 50%;
+    position: absolute; 
     transform: translateX(-50%) translateY(-50%);
 }
 
@@ -60,5 +60,49 @@ h3 {
 
 @font-face {
     font-family: league-gothic;
-    src: url(fonts/leaguegothic-regular-webfont.woff);
+    src: url(Assets/fonts/leaguegothic-regular-webfont.woff);
+}
+
+#lightbulb {
+    width: 100px;
+    height: 100px;
+    vertical-align: center; 
+    z-index: 0; 
+    position: absolute; 
+    top: 140.4%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+#equalizer {
+    width: 100px;
+    height: 100px;
+    vertical-align: center; 
+    z-index: 0; 
+    position: absolute; 
+    top: 140.4%;
+    left: 16.7%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+#resume {
+    width: 100px;
+    height: 100px;
+    vertical-align: center; 
+    z-index: 0; 
+    position: absolute; 
+    top: 140.4%;
+    left: 83.3%;
+    transform: translateX(-50%) translateY(-50%); 
+}
+
+.col-centered {
+    text-align: center;
+    padding-top: 50px;
+    height: 500px;
+}
+
+.middle {
+    border-left: solid lightcyan;
+    border-right: solid lightcyan;
 }

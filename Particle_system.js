@@ -1,7 +1,6 @@
 var container, camera, scene, particleSystem, renderer, light1;
 var tick = 0;
 var clock = new THREE.Clock();
-var DEBUG = true;
 var oldX, oldY;
 var currentX, currentY;
 
@@ -35,17 +34,11 @@ function init() {
     );
     scene.add(particleSystem);
     
-    // Debugging
-    if (DEBUG) console.log('particle system created with max particles: ' + particleSystem.maxParticles);
-    
     // Initialize the renderer
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
-    
-    // Debugging
-    if (DEBUG) console.log('renderer created');
     
     // Set up function to be called automatically when window is resized
     window.addEventListener('resize', onWindowResize, false);
@@ -121,8 +114,6 @@ function spawnParticles(delta_t, tick) {
         if (Math.sqrt(Math.pow(currentX - oldX, 2) + Math.pow(currentY - oldY, 2)) > 0.8) {
             explosion();
         }
-
-        console.log(Math.sqrt(Math.pow(currentX - oldX, 2) + Math.pow(currentY - oldY, 2)));
         
         for (var x = 0; x < spawnerOptions.spawnRate * delta_t; x++) {
             // Note: once the particles have been spawned their behavour is controlled completely by the GPU
@@ -182,7 +173,7 @@ function explosion() {
     options.velocityRandomness = 100;
     
     if (delta_t > 0) {        
-        for (var x = 0; x < 1000; x++) {
+        for (var x = 0; x < 10000; x++) {
             // Note: once the particles have been spawned their behavour is controlled completely by the GPU
             particleSystem.spawnParticle(options);
         }
