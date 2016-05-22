@@ -20,7 +20,7 @@ function init() {
     
     scene = new THREE.Scene();
     
-    renderer = new THREE.CanvasRenderer();
+    renderer = new THREE.CanvasRenderer( {alpha: true });
     renderer.setSize( window.innerWidth, window.innerHeight);
     renderer.setClearColor( 0xf0f0f0 );
     document.body.appendChild( renderer.domElement );

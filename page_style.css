@@ -1,8 +1,64 @@
-p {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    color: dodgerblue;
+h1 {
+    text-align: center;
+    color: #ffc34d;
+    font-family: 'league-gothic';
+	font-size: 46px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
 }
 
-.app-window {
-    float: right;
+h2 {
+    vertical-align: center; 
+    z-index:0; 
+    position: absolute; 
+    top: 52%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+h3 {
+    vertical-align: center; 
+    z-index:0; 
+    position: absolute; 
+    top: 54%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.upperSection {
+    float: left;
+    width: 100%;
+    height: 300px;
+    text-align: center;
+    background: -webkit-linear-gradient(left, lightcyan ,  #99ccff); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, lightcyan ,  #99ccff); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, lightcyan ,  #99ccff); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, lightcyan ,  #99ccff); /* Standard syntax (must be last) */
+}
+
+#d { 
+    vertical-align: center; 
+    z-index:0; 
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+#hourglass {
+    width: 100px;
+    height: 100px;
+    vertical-align: center; 
+    z-index: 0; 
+    position: absolute; 
+    top: 37%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+@font-face {
+    font-family: league-gothic;
+    src: url(fonts/leaguegothic-regular-webfont.woff);
 }

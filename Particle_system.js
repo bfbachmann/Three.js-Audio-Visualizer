@@ -1,4 +1,4 @@
-var container, camera, scene, particleSystem, renderer;
+var container, camera, scene, particleSystem, renderer, light1;
 var tick = 0;
 var clock = new THREE.Clock();
 var DEBUG = true;
@@ -18,6 +18,10 @@ function init() {
     
     // Initialize scene
     scene = new THREE.Scene();
+    
+    // Add point lights to the scene
+    // light1 = new THREE.AmbientLight(0x00020);
+    // scene.add(light1);
     
     // Create particle system and add it to the scene
     particleSystem = new THREE.GPUParticleSystem(
@@ -106,6 +110,9 @@ function spawnParticles(delta_t, tick) {
             // Note: once the particles have been spawned their behavour is controlled completely by the GPU
             particleSystem.spawnParticle(options);
         }
+        
+        // Update point light position
+        // light1.position = options.position;
     }
 }
 
@@ -114,3 +121,36 @@ function spawnParticles(delta_t, tick) {
 function render() {
     renderer.render(scene, camera);
 } 
+
+
+// Reverse time scale when mouse over 'welcome' text
+function rewind() {
+    spawnerOptions.timeScale = -1;
+}
+
+// Set time scale back to 1 when mouse leaves 'welcome' text
+function play() {
+    spawnerOptions.timeScale = 1;
+}
+
+
+// Spawn particles at location of the 'welcome' text when the mouse hovers over it
+function welcomeBurst() {
+
+    var delta_t = clock.getDelta() * spawnerOptions.timeScale;
+    
+    if (delta_t > 0) {
+        var radius = Math.abs(10 - tick % 20);
+        
+        options.position.x = 0;
+        options.position.y = 0;
+        options.position.z = 0;
+        
+        for (var x = 0; x < 10000; x++) {
+            // Note: once the particles have been spawned their behavour is controlled completely by the GPU
+            particleSystem.spawnParticle(options);
+        }
+    }
+}
+
+

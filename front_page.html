@@ -13,22 +13,29 @@
     <script type="text/javascript" src="Assets/build/JSONLoader.js"></script> 
     <script type="text/javascript" src="Assets/build/WebGLRenderer.js"></script> 
     <script type="text/javascript" src="Assets/build/GPUParticleSystem.js"></script> 
+    <script type="text/javascript" src="Assets/build/AmbientLight.js"></script> 
     
     <title> Three.js fun and games </title>
-    
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
 </head>
 
 
-<body>
-    
-    <div class="app-window">
-        <script type="text/javacsript">console.log("starting javascrupt");</script>
-        <!--<script src="App.js" type="text/javascript"></script>-->
-        <script src="Particle_system.js" type="text/javascript"></script>
+<body>    
+
+    <div id="d">
+        <h1 onmouseover="welcomeBurst()"> Welcome </h1>
     </div>
+    
+    <!--<script src="App.js" type="text/javascript"></script>-->
+    <script src="Particle_system.js" type="text/javascript"></script>
+    
+    <div class="upperSection">
+        <h2> ILLUMINASTY </h2>
+        <h3> ~nasty~ </h3>
+    </div>
+
+    <img id="hourglass" src="Assets/hourglass.png" onmouseout="play()" onmouseover="rewind()">
+       
 </body>
     
 </html>
