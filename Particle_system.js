@@ -1,4 +1,4 @@
-var container, camera, scene, particleSystem, renderer, light1;
+var container, camera, scene, particleSystem, renderer;
 var tick = 0;
 var clock = new THREE.Clock();
 var oldX, oldY;
@@ -15,7 +15,7 @@ function init() {
     
     // Create container for display and add to document body        
     container = document.createElement('div');
-    document.body.appendChild(container); // TODO: FIX THIS
+    document.body.appendChild(container); 
     
     // Initialize camera
     camera = new THREE.PerspectiveCamera(28, window.innerWidth / window.innerHeight, 1, 10000);
@@ -23,10 +23,6 @@ function init() {
     
     // Initialize scene
     scene = new THREE.Scene();
-    
-    // Add point lights to the scene
-    // light1 = new THREE.AmbientLight(0x00020);
-    // scene.add(light1);
     
     // Create particle system and add it to the scene
     particleSystem = new THREE.GPUParticleSystem(
@@ -121,9 +117,6 @@ function spawnParticles(delta_t, tick) {
             // Note: once the particles have been spawned their behavour is controlled completely by the GPU
             particleSystem.spawnParticle(options);
         }
-        
-        // Update point light position
-        // light1.position = options.position;
     }
 }
 
@@ -131,7 +124,9 @@ function spawnParticles(delta_t, tick) {
 // Render the scene
 function render() {
     renderer.render(scene, camera);
-    console.log(getFrequencyValue(1000)); // TODO: FIX THIS
+    
+    var freqAmplitude = getFrequencyValue(1);
+    console.log(freqAmplitude); 
 } 
 
 
@@ -154,7 +149,7 @@ function welcomeBurst() {
     if (delta_t > 0) {
         
         options.position.x = 0;
-        options.position.y = 0;
+        options.position.y = -18;
         options.position.z = 0;
         
         for (var x = 0; x < 10000; x++) {
@@ -176,7 +171,7 @@ function explosion() {
     options.velocityRandomness = 100;
     
     if (delta_t > 0) {        
-        for (var x = 0; x < 10000; x++) {
+        for (var x = 0; x < 1000; x++) {
             // Note: once the particles have been spawned their behavour is controlled completely by the GPU
             particleSystem.spawnParticle(options);
         }

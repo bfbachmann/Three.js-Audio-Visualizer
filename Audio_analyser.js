@@ -1,5 +1,5 @@
 var audioContext, audioBuffer;
-var url = 'Assets/audio/dark trap.mp3';
+var url = 'Assets/audio/That look feat. George Maple.mp3';
 var audioSource;
 var playing;
 var analyzer, audioData;
@@ -22,7 +22,7 @@ function initAudio() {
 }
 
 
-// Create and initialise the analyzer for this audio context TODO: FIX THIS
+// Create and initialise the analyzer for this audio context 
 function initAnalyzer() {
 
 	// Create the analyzer and connect it to the audio source and destination
@@ -89,8 +89,7 @@ function playAudio(audioBuffer) {
 	audioSource.buffer = audioBuffer;
 
 	// Connect the audio source to the destination and initialize the analyzer
-	// audioSource.connect(audioContext.destination);
-	initAnalyzer(); // TODO: FIX THIS
+	initAnalyzer();
 
 	// Start playing the sounds from the beginning
 	audioSource.start();
