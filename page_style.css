@@ -14,14 +14,14 @@ h2 {
 }
 
 #ill {
-    top: 52%;
+    top: 66%;
     left: 50%;
     position: absolute; 
     transform: translateX(-50%) translateY(-50%);
 }
 
 #nasty {
-    top: 54%;
+    top: 70%;
     left: 50%;
     position: absolute; 
     transform: translateX(-50%) translateY(-50%);
@@ -94,6 +94,14 @@ h2 {
     top: 128%;
     left: 83.3%;
     transform: translateX(-50%) translateY(-50%); 
+}
+
+#playpause {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .col-centered {

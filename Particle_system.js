@@ -4,16 +4,18 @@ var clock = new THREE.Clock();
 var oldX, oldY;
 var currentX, currentY;
 
+
 oldY = oldX = NaN;
 
 init();
 animate();
 
+
 function init() {
     
     // Create container for display and add to document body        
     container = document.createElement('div');
-    document.body.appendChild(container);
+    document.body.appendChild(container); // TODO: FIX THIS
     
     // Initialize camera
     camera = new THREE.PerspectiveCamera(28, window.innerWidth / window.innerHeight, 1, 10000);
@@ -49,7 +51,7 @@ function init() {
         positionRandomness: .1,
         velocity: new THREE.Vector3(),
         velocityRandomness: 0.9,
-        color: 0xaa88ff,
+        color: 0xfffff,
         colorRandomness: 0,
         turbulence: 0.5,
         lifetime: 2,
@@ -129,6 +131,7 @@ function spawnParticles(delta_t, tick) {
 // Render the scene
 function render() {
     renderer.render(scene, camera);
+    console.log(getFrequencyValue(1000)); // TODO: FIX THIS
 } 
 
 
