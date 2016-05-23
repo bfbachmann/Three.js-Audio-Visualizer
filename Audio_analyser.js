@@ -2,7 +2,7 @@ var audioContext, audioBuffer;
 var url = 'Assets/audio/dark trap.mp3';
 var audioSource;
 var playing;
-var analyzer, dataArray, bufferLength, freqDomain;
+var analyzer, audioData;
 
 
 window.addEventListener('load', initAudio, false);
@@ -30,18 +30,30 @@ function initAnalyzer() {
 	audioSource.connect(analyzer);
 	analyzer.connect(audioContext.destination);
 
-	// Get frequency data
-	freqDomain = new Float32Array(analyzer.frequencyBinCount);
-	analyzer.getFloatFrequencyData(freqDomain);
+	// Start audio analysis loop
+	analyzeAudio();
+}
+
+
+// Get an array of frequancies and amplitudes
+function analyzeAudio() {
+	
+	window.requestAnimationFrame(analyzeAudio);
+
+	audioData = new Uint8Array(analyzer.frequencyBinCount);
+	analyzer.getByteFrequencyData(audioData);
 }
 
 
 // Get the aplitude of the sound emitted at the given frequency
 function getFrequencyValue(frequency) {
 
-	var nyquist = audioContext.sampleRate/2;
-	var index = Math.round(frequency/nyquist * freqDomain.length);
-	return freqDomain[index];
+	if (!(audioData === undefined)) {
+		var nyquist = audioContext.sampleRate/2;
+		var index = Math.round(frequency/nyquist * audioData.length);
+		return audioData[index];
+	}
+	return null;
 }
 
 
@@ -77,11 +89,11 @@ function playAudio(audioBuffer) {
 	audioSource.buffer = audioBuffer;
 
 	// Connect the audio source to the destination and initialize the analyzer
-	audioSource.connect(audioContext.destination);
+	// audioSource.connect(audioContext.destination);
 	initAnalyzer(); // TODO: FIX THIS
 
 	// Start playing the sounds from the beginning
-	audioSource.start(0);
+	audioSource.start();
 }
 
 
