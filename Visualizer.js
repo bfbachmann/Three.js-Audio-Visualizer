@@ -16,7 +16,7 @@ function initVisualizer() {
     
     // Initialize the camera, scene, and renderer
     camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000 );
-    camera.position.z = 500;
+    camera.position.z = 600;
     
     scene = new THREE.Scene();
     
@@ -123,8 +123,11 @@ function animate() {
 
 	requestAnimationFrame(animate);
 
-	animateCubes();
-	animatePointLights();
+	if (isPlaying()) {
+		animateCubes();
+		animatePointLights();
+	}
+
 	controls.update();
 	render();
 }

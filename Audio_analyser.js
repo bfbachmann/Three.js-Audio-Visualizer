@@ -1,5 +1,5 @@
 var audioContext, audioBuffer;
-var url = 'Assets/audio/dark trap.mp3';
+var url = 'Assets/audio/03 Drippin\'.m4a';
 var audioSource;
 var playing;
 var analyzer, audioData;
@@ -111,4 +111,9 @@ function toggleAudio() {
 		playing = false;
 		audioSource.stop();
 	}
+}
+
+
+function isPlaying() {
+	return playing;
 }
