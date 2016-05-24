@@ -16,7 +16,7 @@ function initVisualizer() {
     
     // Initialize the camera, scene, and renderer
     camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000 );
-    camera.position.z = 600;
+    camera.position.z = 700;
     
     scene = new THREE.Scene();
     
@@ -39,7 +39,7 @@ function initVisualizer() {
 	addPointLights(3);
 
     // Create cubes
-    createCubes(100);
+    createCubes(400);
 
     // Setup camera controls 
     controls = new THREE.TrackballControls(camera);
@@ -103,12 +103,16 @@ function animatePointLights() {
 	        var light = pointLights[i - 1];
         
 		    // Update point light position
-		    light.position.x = radius * Math.cos(tick + i) * 50;
-			light.position.y = radius * Math.sin(tick + i) * 50;
-		    light.position.z = radius * Math.cos(tick + i) * 50;
+		    light.position.x = radius * Math.sin(tick + i) * 50;
+			light.position.y = radius * Math.cos(tick + i) * 50;
+		    light.position.z = radius * Math.sin(tick + i) * 50;
 
-		    light.intensity = getFrequencyValue(i * 2000/pointLights.length + 50) / 50;
-		    if (i === 1) console.log(light.position);
+
+		    var volume = getFrequencyValue(i * 2000/pointLights.length + 50);
+		    console.log(volume);
+
+		    light.intensity =  Math.pow((volume/ 256), 3) * 5;
+
     	}
     }
 }
