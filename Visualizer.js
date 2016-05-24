@@ -52,7 +52,7 @@ function initVisualizer() {
 function addPointLights(numLights) {
 
 	for (var i = 0; i < numLights; i++) {
-		var light = new THREE.PointLight( Math.random() * 0x808008 + 0x808080, 2, 400 );
+		var light = new THREE.PointLight( i/numLights * 0x808008 + 0x808080, 2, 400 );
 
 		light.position.x = Math.random() * 500 - 250;
 		light.position.y = Math.random() * 500 - 250;
@@ -98,14 +98,17 @@ function animatePointLights() {
 
     if (delta_t > 0) {
 
-    	for (var i = 0; i < pointLights.length; i++) {
-	        var radius = Math.abs(10 - tick*i % 20);
-	        var light = pointLights[i];
+    	for (var i = 1; i <= pointLights.length; i++) {
+	        var radius = Math.abs(10 - tick % 20);
+	        var light = pointLights[i - 1];
         
 		    // Update point light position
-		    light.position.x = radius * Math.cos(tick) * 50;
-			light.position.y = radius * Math.sin(tick) * 50;
-		    light.position.z = radius * Math.cos(tick) * 50;
+		    light.position.x = radius * Math.cos(tick + i) * 50;
+			light.position.y = radius * Math.sin(tick + i) * 50;
+		    light.position.z = radius * Math.cos(tick + i) * 50;
+
+		    light.intensity = getFrequencyValue(i * 2000/pointLights.length + 50) / 50;
+		    if (i === 1) console.log(light.position);
     	}
     }
 }
@@ -144,10 +147,10 @@ function animateCubes() {
 	for (var i = 0; i < cubes.length; i++) {
 		var cube = cubes[i];
 
-		if (cube.position.y < -500) {
-			cube.position.y = 500;
+		if (cube.position.z > 500) {
+			cube.position.z = -500;
 		} else {
-			cube.position.y--;
+			cube.position.z++;
 		}
 
 		cube.rotation.x += 0.01;
