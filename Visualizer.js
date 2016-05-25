@@ -4,6 +4,13 @@ var tick = 0;
 var cubes = [];
 var pointLights = [];
 var clock = new THREE.Clock();
+var colors = [
+        '#00ffff', '#0000ff', '#ff00ff',
+        '#008000', '#00ff00', '#800000',
+        '#000080', '#808000', '#800080', 'ff0000',
+        '#c0c0c0', '#008080', '#ffff00'
+    ];
+
 
 initVisualizer();
 
@@ -36,10 +43,10 @@ function initVisualizer() {
 	dirLight.color.setHSL( 0.1, 0.7, 0.5 );
 
 	// Add point lights to scene
-	addPointLights(3);
+	addPointLights(10);
 
     // Create cubes
-    createCubes(400);
+    createCubes(1000);
 
     // Setup camera controls 
     controls = new THREE.TrackballControls(camera);
@@ -48,15 +55,18 @@ function initVisualizer() {
 }
 
 
-// Add point light to scene at random location and color 
+// Add point lights to scene with varying colors in circular pattern around center 
 function addPointLights(numLights) {
 
-	for (var i = 0; i < numLights; i++) {
-		var light = new THREE.PointLight( i/numLights * 0x808008 + 0x808080, 2, 400 );
+	var radius = 400;
 
-		light.position.x = Math.random() * 500 - 250;
-		light.position.y = Math.random() * 500 - 250;
-		light.position.z = Math.random() * 500 - 250;
+	for (var i = 0; i < numLights; i++) {
+
+		var light = new THREE.PointLight(colors[i], 2, 350 );
+
+		light.position.x = radius * Math.cos(i / numLights * 2 * Math.PI);
+		light.position.y = radius * Math.sin(i / numLights * 2 * Math.PI);
+		light.position.z = 0;
 
 		pointLights.push(light);
 		scene.add(light);
@@ -73,8 +83,8 @@ function createCubes(numCubes) {
 	for (var i = 0; i < numCubes; i++) {
 
 		var cubeMesh = new THREE.Mesh( cube, material );
-		cubeMesh.position.x = Math.random() * 1000 - 500;
-		cubeMesh.position.y = Math.random() * 1000 - 500;
+		cubeMesh.position.x = Math.random() * 2000 - 1000;
+		cubeMesh.position.y = Math.random() * 1500 - 750;
 		cubeMesh.position.z = Math.random() * 1000 - 500;
 
 		cubeMesh.rotation.x = Math.random() * 2 * Math.PI;
@@ -98,20 +108,17 @@ function animatePointLights() {
 
     if (delta_t > 0) {
 
-    	for (var i = 1; i <= pointLights.length; i++) {
-	        var radius = Math.abs(10 - tick % 20);
-	        var light = pointLights[i - 1];
+    	for (var i = 0; i < pointLights.length; i++) {
+	        var light = pointLights[i];
         
 		    // Update point light position
-		    light.position.x = radius * Math.sin(tick + i) * 50;
-			light.position.y = radius * Math.cos(tick + i) * 50;
-		    light.position.z = radius * Math.sin(tick + i) * 50;
+		 //    light.position.x = radius * Math.sin(tick + 3 * i);
+			// light.position.y = radius * Math.cos(tick + i);
+		 //    light.position.z = radius * Math.sin(tick + 2 * i);
 
 
-		    var volume = getFrequencyValue(i * 2000/pointLights.length + 50);
-		    console.log(volume);
-
-		    light.intensity =  Math.pow((volume/ 256), 3) * 5;
+		    var volume = getFrequencyValue((i * 20000 / pointLights.length) + 1);
+		    light.intensity =  Math.pow((volume/ 256), 3) * 40;
 
     	}
     }

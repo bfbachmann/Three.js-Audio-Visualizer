@@ -1,5 +1,5 @@
 var audioContext, audioBuffer;
-var url = 'Assets/audio/Skin Remake.mp3';
+var url = 'Assets/audio/03 Drippin\'.m4a';
 var audioSource;
 var playing;
 var analyzer, audioData;
@@ -47,6 +47,8 @@ function analyzeAudio() {
 
 // Get the aplitude of the sound emitted at the given frequency
 function getFrequencyValue(frequency) {
+
+	console.log(frequency);
 
 	if (!(audioData === undefined)) {
 		var nyquist = audioContext.sampleRate/2;
