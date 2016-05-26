@@ -5,10 +5,10 @@ var cubes = [];
 var pointLights = [];
 var clock = new THREE.Clock();
 var colors = [
-        '#00ffff', '#0000ff', '#ff00ff',
-        '#008000', '#00ff00', '#800000',
-        '#000080', '#808000', '#800080', 'ff0000',
-        '#c0c0c0', '#008080', '#ffff00'
+        '#ff0000', '#ff8000', '#ffff00',
+        '#80ff00', '#00ff00', '#00ff80',
+        '#00ffff', '#0080ff', '#0000ff', '#8000ff',
+        '#ff00ff', '#ff0080', '#ff0000'
     ];
 
 
@@ -43,7 +43,7 @@ function initVisualizer() {
 	dirLight.color.setHSL( 0.1, 0.7, 0.5 );
 
 	// Add point lights to scene
-	addPointLights(10);
+	addPointLights(13);
 
     // Create cubes
     createCubes(1000);
@@ -62,7 +62,7 @@ function addPointLights(numLights) {
 
 	for (var i = 0; i < numLights; i++) {
 
-		var light = new THREE.PointLight(colors[i], 2, 350 );
+		var light = new THREE.PointLight(colors[i % 13], 2, 350 );
 
 		light.position.x = radius * Math.cos(i / numLights * 2 * Math.PI);
 		light.position.y = radius * Math.sin(i / numLights * 2 * Math.PI);
@@ -118,7 +118,7 @@ function animatePointLights() {
 
 
 		    var volume = getFrequencyValue((i * 20000 / pointLights.length) + 1);
-		    light.intensity =  Math.pow((volume/ 256), 3) * 40;
+		    light.intensity =  Math.pow((volume/ 256), 3) * 25;
 
     	}
     }
