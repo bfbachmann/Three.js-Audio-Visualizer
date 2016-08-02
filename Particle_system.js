@@ -180,4 +180,3 @@ function explosion() {
     options.velocityRandomness = vr;
 }
 
-
