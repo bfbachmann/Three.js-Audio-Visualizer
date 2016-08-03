@@ -1,5 +1,5 @@
 var audioContext, audioBuffer;
-var url = 'Assets/audio/Southside Against the Clock Instrumental.mp3';
+var url = 'Assets/audio/Drive Me Crazy (ft. Vic Mensa).mp3';
 var audioSource;
 var playing;
 var analyzer, audioData;
@@ -42,11 +42,10 @@ function analyzeAudio() {
 
 	audioData = new Uint8Array(analyzer.frequencyBinCount);
 	analyzer.getByteFrequencyData(audioData);
-	detectBeats(audioData);
 }
 
 
-// Get the aplitude of the sound emitted at the given frequency
+// Get the aplitude of the sound emitted at the given frequency (Hz)
 function getFrequencyValue(frequency) {
 
 	if (!(audioData === undefined)) {
@@ -117,15 +116,4 @@ function toggleAudio() {
 
 function isPlaying() {
 	return playing;
-}
-
-
-function detectBeats(audioData) {
-
-	for (var i = 0; i < audioData.length/2; i++) {
-		if (audioData[i] > 250) {
-			console.log('beat');
-			return;
-		}
-	}
 }
