@@ -5,7 +5,6 @@ var light;
 var renderer;
 var scene2;
 var renderer2;
-var div;
 var spheres = [];
 var clock = new THREE.Clock();
 var tick = 0;
@@ -36,7 +35,7 @@ function init() {
     
     //WebGL Renderer
     renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setClearColor(0xffffff, 1)
+    renderer.setClearColor(0xffffff, 1);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.domElement.style.zIndex = 5;
     document.body.appendChild(renderer.domElement);
@@ -45,12 +44,12 @@ function init() {
     scene2 = new THREE.Scene();
     
     //HTML
-    element = document.createElement('div');
-    element.innerHTML = 'Plain text inside a div.';
+    var element = document.createElement('div');
+    element.innerHTML = 'WHATS GOOD?';
     element.className = 'three-div';
     
     //CSS Object
-    div = new THREE.CSS3DObject(element);
+    var div = new THREE.CSS3DObject(element);
     div.position.x = 0;
     div.position.y = 0;
     div.position.z = -185;
@@ -91,6 +90,7 @@ function render() {
 	if (intersects.length > 0) {
 		intersects[0].object.material.color.set( 0xff0000 );
 		intersects[0].object.positionLocked = true;
+		intersects[0].object.infobox = addInfobox(intersects[0].object.position, 'infobox test');
 	}
 
 	renderer2.render(scene2, camera);
@@ -109,6 +109,7 @@ function createSpheres(numSpheres) {
 		sphere.positionLocked = false;
 		sphere.radius = sphere.position.length();
 		sphere.originalColor = color;
+		sphere.infobox = false;
 
 		spheres.push(sphere);
 		scene.add(sphere);
@@ -130,7 +131,15 @@ function updateSpheres() {
 			var sphere = spheres[i];
 
 			if (sphere.positionLocked === false) {
-				sphere.material.color.set(sphere.originalColor);
+
+				if (sphere.infobox !== false) {
+					sphere.infobox.element.parentNode.remove(sphere.infobox.element); //TODO: FIX THIS
+					console.log(sphere.infobox);
+					sphere.infobox.removed = true;
+					sphere.infobox = false;
+					sphere.material.color.set(sphere.originalColor);
+				}
+
 				sphere.position.x = sphere.radius * Math.sin(tick + 3 * i);
 				sphere.position.y = sphere.radius * Math.cos(tick + i);
 				sphere.position.z = sphere.radius * Math.sin(tick + 2 * i);
@@ -148,6 +157,24 @@ function onMouseMove( event ) {
 
 	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+}
+
+
+function addInfobox(position, text) {
+    //HTML
+    var element = document.createElement('div');
+    element.innerHTML = text;
+    element.className = 'three-div';
+    
+    //CSS Object
+    var infobox = new THREE.CSS3DObject(element);
+    infobox.position.set(position);
+    infobox.rotation.y = Math.PI;
+    infobox.name = 'myInfobox';
+
+    scene2.add(infobox);
+
+    return infobox;
 }
 
 
