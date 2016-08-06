@@ -9,11 +9,14 @@ var div;
 var spheres = [];
 var clock = new THREE.Clock();
 var tick = 0;
+var raycaster;
+var mouse;
 
 init();
 animate();
 
 function init() {
+
     //camera
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.set(0, 0, -1000);
@@ -61,27 +64,51 @@ function init() {
     renderer2.domElement.style.top = 0;
     document.body.appendChild(renderer2.domElement);
 
+    // Init raycaster and mouse
+    raycaster = new THREE.Raycaster();
+	mouse = new THREE.Vector2();
+	window.addEventListener( 'mousemove', onMouseMove, false );
+
     createSpheres(10);
 }
 
 
 function animate() {
     requestAnimationFrame(animate);
-    renderer2.render(scene2, camera);
-    renderer.render(scene, camera);
     controls.update();
     updateSpheres();
+    render();
+}
+
+
+function render() {
+	// update the picking ray with the camera and mouse position	
+	raycaster.setFromCamera( mouse, camera );
+
+	// calculate objects intersecting the picking ray
+	var intersects = raycaster.intersectObjects( scene.children );
+
+	if (intersects.length > 0) {
+		intersects[0].object.material.color.set( 0xff0000 );
+		intersects[0].object.positionLocked = true;
+	}
+
+	renderer2.render(scene2, camera);
+    renderer.render(scene, camera);
 }
 
 
 function createSpheres(numSpheres) {
 	for (var i = 0; i < numSpheres; i++) {
-		var material = new THREE.MeshBasicMaterial({color: new THREE.Color(Math.random(), Math.random(), Math.random())});
-		var geometry = new THREE.SphereGeometry(Math.random() * 40 + 20, 32, 32);
+		var color = new THREE.Color(Math.random(), Math.random(), Math.random());
+		var material = new THREE.MeshBasicMaterial({color: color});
+		var geometry = new THREE.SphereGeometry(Math.random() * 80 + 40, 32, 32);
 		var sphere = new THREE.Mesh(geometry, material);
 
 		sphere.position.set(Math.random() * 800 - 400, Math.random() * 800 - 400, Math.random() * 800 - 400);
+		sphere.positionLocked = false;
 		sphere.radius = sphere.position.length();
+		sphere.originalColor = color;
 
 		spheres.push(sphere);
 		scene.add(sphere);
@@ -99,13 +126,28 @@ function updateSpheres() {
 		tick = 0;
     } else {
 		for(var i = 0; i < spheres.length; i++) {
+
 			var sphere = spheres[i];
 
-			sphere.position.x = sphere.radius * Math.sin(tick + 3 * i);
-			sphere.position.y = sphere.radius * Math.cos(tick + i);
-			sphere.position.z = sphere.radius * Math.sin(tick + 2 * i);
+			if (sphere.positionLocked === false) {
+				sphere.material.color.set(sphere.originalColor);
+				sphere.position.x = sphere.radius * Math.sin(tick + 3 * i);
+				sphere.position.y = sphere.radius * Math.cos(tick + i);
+				sphere.position.z = sphere.radius * Math.sin(tick + 2 * i);
+			} else {
+				sphere.positionLocked = false;
+			}
 		}
     }
+}
+
+function onMouseMove( event ) {
+
+	// calculate mouse position in normalized device coordinates
+	// (-1 to +1) for both components
+
+	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 }
 
 
