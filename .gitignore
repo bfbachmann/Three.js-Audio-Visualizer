@@ -1,4 +1,4 @@
-textures*
-audio*
-fonts*
-icons*
+/Assets/textures*
+/Assets/audio*
+/Assets/fonts*
+/Assets/icons*

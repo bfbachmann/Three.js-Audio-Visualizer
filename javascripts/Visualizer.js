@@ -52,10 +52,6 @@ function initVisualizer() {
     // Create cubes
     createCubes(1000);
 
-    // Setup camera controls 
-    controls = new THREE.TrackballControls(camera);
-    controls.addEventListener('change', render);
-
     animate();
 }
 
@@ -109,7 +105,7 @@ function animatePointLights() {
     tick += delta_t;
     
     // Check for wraparound (we want tick to stay positive)
-    if (tick < 0) t = 0;
+    if (tick < 0) tick = 0;
 
     if (delta_t > 0) {
 
