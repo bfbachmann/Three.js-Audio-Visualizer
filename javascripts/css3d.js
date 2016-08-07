@@ -74,6 +74,7 @@ function init() {
 
 function animate() {
     requestAnimationFrame(animate);
+
     controls.update();
     updateSpheres();
     render();
@@ -88,9 +89,11 @@ function render() {
 	var intersects = raycaster.intersectObjects( scene.children );
 
 	if (intersects.length > 0) {
-		intersects[0].object.material.color.set( 0xff0000 );
-		intersects[0].object.positionLocked = true;
-		intersects[0].object.infobox = addInfobox(intersects[0].object.position, 'infobox test');
+		if (intersects[0].object.positionLocked === false) {
+			intersects[0].object.material.color.set( 0xff0000 );
+			intersects[0].object.positionLocked = true;
+			intersects[0].object.infobox = addInfobox(intersects[0].object.position, 'infobox test');
+		}
 	}
 
 	renderer2.render(scene2, camera);
@@ -133,9 +136,9 @@ function updateSpheres() {
 			if (sphere.positionLocked === false) {
 
 				if (sphere.infobox !== false) {
-					sphere.infobox.element.parentNode.remove(sphere.infobox.element); //TODO: FIX THIS
-					console.log(sphere.infobox);
-					sphere.infobox.removed = true;
+					// sphere.infobox.element.parentNode.remove(sphere.infobox.element); //TODO: FIX THIS
+					scene2.remove(scene2.children[1]);
+					console.log(scene2.children);
 					sphere.infobox = false;
 					sphere.material.color.set(sphere.originalColor);
 				}
@@ -161,20 +164,24 @@ function onMouseMove( event ) {
 
 
 function addInfobox(position, text) {
-    //HTML
-    var element = document.createElement('div');
-    element.innerHTML = text;
-    element.className = 'three-div';
-    
-    //CSS Object
-    var infobox = new THREE.CSS3DObject(element);
-    infobox.position.set(position);
-    infobox.rotation.y = Math.PI;
-    infobox.name = 'myInfobox';
 
-    scene2.add(infobox);
+	if (scene2.children.length < 2) {
 
-    return infobox;
+	    //HTML
+	    var element = document.createElement('div');
+	    element.innerHTML = text;
+	    element.className = 'three-div';
+	    
+	    //CSS Object
+	    var infobox = new THREE.CSS3DObject(element);
+	    infobox.position.set(position);
+	    infobox.rotation.y = Math.PI;
+	    infobox.name = 'myInfobox';
+
+	    scene2.add(infobox);
+
+	    return infobox;
+	}
 }
 
 
