@@ -92,7 +92,7 @@ function render() {
 		if (intersects[0].object.positionLocked === false) {
 			intersects[0].object.material.color.set( 0xff0000 );
 			intersects[0].object.positionLocked = true;
-			intersects[0].object.infobox = addInfobox(intersects[0].object.position, 'infobox test');
+			intersects[0].object.infobox = addInfobox(intersects[0].object.position);
 		}
 	}
 
@@ -136,9 +136,7 @@ function updateSpheres() {
 			if (sphere.positionLocked === false) {
 
 				if (sphere.infobox !== false) {
-					// sphere.infobox.element.parentNode.remove(sphere.infobox.element); //TODO: FIX THIS
 					scene2.remove(scene2.children[1]);
-					console.log(scene2.children);
 					sphere.infobox = false;
 					sphere.material.color.set(sphere.originalColor);
 				}
@@ -163,24 +161,26 @@ function onMouseMove( event ) {
 }
 
 
-function addInfobox(position, text) {
+function addInfobox(position) {
 
 	if (scene2.children.length < 2) {
 
-	    //HTML
-	    var element = document.createElement('div');
-	    element.innerHTML = text;
-	    element.className = 'three-div';
-	    
-	    //CSS Object
-	    var infobox = new THREE.CSS3DObject(element);
-	    infobox.position.set(position);
-	    infobox.rotation.y = Math.PI;
-	    infobox.name = 'myInfobox';
+		console.log(position);
 
-	    scene2.add(infobox);
+		//HTML
+		var element = document.createElement('div');
+		element.innerHTML = "<h1>Infobox Test</h1> <img src='/Assets/icons/equalizer.png' width='100px'> <p>This is some text that should be rendered in 3D</p>";
+		element.className = 'three-div';
 
-	    return infobox;
+		//CSS Object
+		var infobox = new THREE.CSS3DObject(element);
+		infobox.position.set(position.x, position.y, position.z);
+		infobox.rotation.y = Math.PI;
+		infobox.name = 'myInfobox';
+
+		scene2.add(infobox);
+
+		return infobox;
 	}
 }
 
