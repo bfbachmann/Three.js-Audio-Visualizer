@@ -175,7 +175,7 @@ function addInfobox(position) {
 		//CSS Object
 		var infobox = new THREE.CSS3DObject(element);
 		infobox.position.set(position.x, position.y, position.z);
-		infobox.rotation.y = Math.PI;
+		infobox.lookAt(camera.position);
 		infobox.name = 'myInfobox';
 
 		scene2.add(infobox);
